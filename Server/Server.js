@@ -11,17 +11,31 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
-app.use(
-  cors({
-    origin: [
-      "https://notebyb.netlify.app",
-      "http://localhost:5173",
-      process.env.CLIENT_URL,
-    ].filter(Boolean),
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  }),
-);
+const allowedOrigins = [
+  "https://notebyb.netlify.app",
+  "http://localhost:5173",
+  process.env.CLIENT_URL,
+].filter(Boolean);
+
+const corsOptions = {
+  origin(origin, callback) {
+    if (!origin) {
+      return callback(null, true);
+    }
+
+    const hostname = new URL(origin).hostname;
+    const isAllowed =
+      allowedOrigins.includes(origin) || hostname.endsWith(".netlify.app");
+
+    return callback(null, isAllowed);
+  },
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
+app.options(/.*/, cors(corsOptions));
 
 // signup
 app.post("/signup", async (req, res) => {
