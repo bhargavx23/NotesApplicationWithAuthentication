@@ -58,6 +58,7 @@ Create a `.env` file inside `Expressjs,MongoDb/`.
 MONGODB_URL=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret_key
 PORT=5000
+CLIENT_URL=your_deployed_frontend_url
 ```
 
 ## Installation
@@ -100,6 +101,22 @@ Frontend URL:
 ```text
 http://localhost:5173
 ```
+
+For Netlify, use these frontend deploy settings:
+
+```text
+Base directory: client/NotesApp
+Build command: npm run build
+Publish directory: dist
+```
+
+Set this Netlify environment variable after your backend is deployed:
+
+```env
+VITE_API_URL=https://your-backend-url
+```
+
+Do not use `npm run dev` as the Netlify build command. `npm run dev` starts a local development server and is not a production build.
 
 ## API Routes
 
@@ -152,6 +169,7 @@ npm run lint
 - After login/signup, the token and user data are stored in `localStorage`.
 - Protected pages check for a token before allowing access.
 - `.env`, `node_modules`, and build output are intentionally ignored by Git.
+- Netlify deploys only the React frontend. Deploy the Express backend separately, then set `VITE_API_URL` in Netlify and `CLIENT_URL` in the backend host.
 
 ## Author
 

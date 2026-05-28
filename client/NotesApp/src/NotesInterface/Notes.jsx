@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { apiUrl } from "../api";
 const Notes = () => {
   const [title, settitle] = useState("");
   const [description, setdescription] = useState("");
@@ -9,7 +10,7 @@ const Notes = () => {
     const token = localStorage.getItem("token");
     try {
       await axios.post(
-        "http://localhost:5000/notes",
+        apiUrl("/notes"),
         { title, description },
         { headers: { Authorization: `Bearer ${token}` } }
       );

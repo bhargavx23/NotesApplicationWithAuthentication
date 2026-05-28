@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { apiUrl } from "../api";
 
 const LoginPage = ({ onAuth }) => {
   const [email, setemail] = useState("");
@@ -12,7 +13,7 @@ const LoginPage = ({ onAuth }) => {
     const credentials = { email, password };
     try {
       const response = await axios.post(
-        "http://localhost:5000/login",
+        apiUrl("/login"),
         credentials
       );
       console.log(response.data);

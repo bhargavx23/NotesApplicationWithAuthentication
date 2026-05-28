@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { apiUrl } from "../api";
 const ViewNotes = () => {
   const [notes, setnotes] = useState([]);
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ const ViewNotes = () => {
   useEffect(() => {
     const fetchnotes = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/notes", {
+        const response = await axios.get(apiUrl("/notes"), {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -26,7 +27,7 @@ const ViewNotes = () => {
   // delete note function to delete note by id and update the notes state
   const DeleteNote = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/notes/${id}`, {
+      await axios.delete(apiUrl(`/notes/${id}`), {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -54,7 +55,7 @@ const ViewNotes = () => {
     e.preventDefault();
     try {
       await axios.put(
-        `http://localhost:5000/notes/${noteToEdit._id}`,
+        apiUrl(`/notes/${noteToEdit._id}`),
         { title, description },
         {
           headers: { Authorization: `Bearer ${token}` },

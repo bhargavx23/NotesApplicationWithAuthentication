@@ -63,6 +63,24 @@ JWT_SECRET=your_jwt_secret
 PORT=5000
 ```
 
+## Netlify Deployment
+
+Use these Netlify settings:
+
+```text
+Base directory: client/NotesApp
+Build command: npm run build
+Publish directory: dist
+```
+
+After deploying the Express backend separately, add this Netlify environment variable:
+
+```env
+VITE_API_URL=https://your-backend-url
+```
+
+Netlify hosts the React frontend only. The Express API must run on a backend host such as Render, Railway, or another Node.js hosting service.
+
 ## Search Behavior
 
 The search box on the View Notes page filters the already fetched notes on the client side. It checks both note titles and note descriptions, ignores letter case, and shows the full notes list again when the input is empty or only spaces.
