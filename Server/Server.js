@@ -7,16 +7,15 @@ import { NotesModel } from "./model/NotesModel.js";
 import jwt from "jsonwebtoken";
 import { authenticatioToken } from "./Middleware/Authentication.js";
 import dotenv from "dotenv";
-
 dotenv.config();
-
+import { apiUrl } from "../client/src/api.js";
 const app = express();
 app.use(express.json());
 
 app.use(
   cors({
     origin: [
-      "http://localhost:3000",
+      `${apiUrl}`,
       "http://localhost:5173",
       process.env.CLIENT_URL,
     ].filter(Boolean),
