@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(
   cors({
     origin: [
-      `${apiUrl}`,
+      "https://notesapplicationwithauthentication.onrender.com",
       "http://localhost:5173",
       process.env.CLIENT_URL,
     ].filter(Boolean),
