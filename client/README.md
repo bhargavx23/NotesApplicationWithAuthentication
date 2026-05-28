@@ -52,7 +52,7 @@ http://localhost:5173
 The frontend expects the API to run on:
 
 ```text
-http://localhost:5000
+https://notesapplicationwithauthentication.onrender.com
 ```
 
 Required backend environment variables:

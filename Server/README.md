@@ -93,7 +93,7 @@ npm run dev
 Backend URL:
 
 ```text
-http://localhost:5000
+https://notesapplicationwithauthentication.onrender.com
 ```
 
 Frontend URL:
@@ -122,10 +122,10 @@ Do not use `npm run dev` as the Netlify build command. `npm run dev` starts a lo
 
 ### Auth
 
-| Method | Route | Description |
-| --- | --- | --- |
-| POST | `/signup` | Create a new user |
-| POST | `/login` | Login user and return JWT token |
+| Method | Route     | Description                     |
+| ------ | --------- | ------------------------------- |
+| POST   | `/signup` | Create a new user               |
+| POST   | `/login`  | Login user and return JWT token |
 
 ### Notes
 
@@ -135,23 +135,23 @@ These routes require an `Authorization` header:
 Authorization: Bearer <token>
 ```
 
-| Method | Route | Description |
-| --- | --- | --- |
-| POST | `/notes` | Create a note |
-| GET | `/notes` | Get logged-in user's notes |
-| GET | `/notes/:id` | Get one note |
-| PUT | `/notes/:id` | Update one note |
-| DELETE | `/notes/:id` | Delete one note |
+| Method | Route        | Description                |
+| ------ | ------------ | -------------------------- |
+| POST   | `/notes`     | Create a note              |
+| GET    | `/notes`     | Get logged-in user's notes |
+| GET    | `/notes/:id` | Get one note               |
+| PUT    | `/notes/:id` | Update one note            |
+| DELETE | `/notes/:id` | Delete one note            |
 
 ## Frontend Routes
 
-| Route | Page |
-| --- | --- |
-| `/` | Opening page |
-| `/signup` | Signup page |
-| `/login` | Login page |
-| `/notes` | Create notes page |
-| `/viewnotes` | View notes page |
+| Route        | Page              |
+| ------------ | ----------------- |
+| `/`          | Opening page      |
+| `/signup`    | Signup page       |
+| `/login`     | Login page        |
+| `/notes`     | Create notes page |
+| `/viewnotes` | View notes page   |
 
 ## Build and Lint
 
