@@ -1,0 +1,33 @@
+# Environment
+.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules/
+client/NotesApp/node_modules/
+
+# Build output
+dist/
+dist-ssr/
+client/NotesApp/dist/
+client/NotesApp/dist-ssr/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Local/editor files
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+*.local
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
