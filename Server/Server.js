@@ -12,7 +12,18 @@ const app = express();
 app.use(express.json());
 
 const corsOptions = {
-  origin: process.env.CLIENT_URL || "http://localhost:5173",
+  origin: (origin, callback) => {
+    const allowed = [
+      "https://notebyb.netlify.app",
+      process.env.CLIENT_URL,
+    ].filter(Boolean);
+
+    // If browser doesn't send an Origin (like curl), allow.
+    if (!origin) return callback(null, true);
+
+    const isAllowed = allowed.includes(origin);
+    return callback(null, isAllowed);
+  },
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
