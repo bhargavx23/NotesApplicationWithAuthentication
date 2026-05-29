@@ -202,7 +202,10 @@ app.delete("/notes/:id", authenticatioToken, async (req, res) => {
 // mongodb connection
 const connectdb = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URL);
+    await mongoose.connect(process.env.MONGODB_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
     console.log("Connected to MongoDB");
   } catch (error) {
     console.log("Error connecting to MongoDB:", error);
