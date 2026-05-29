@@ -11,31 +11,15 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
-const allowedOrigins = [
-  "https://notebyb.netlify.app",
-  "http://localhost:5173",
-  process.env.CLIENT_URL,
-].filter(Boolean);
-
 const corsOptions = {
-  origin(origin, callback) {
-    if (!origin) {
-      return callback(null, true);
-    }
-
-    const hostname = new URL(origin).hostname;
-    const isAllowed =
-      allowedOrigins.includes(origin) || hostname.endsWith(".netlify.app");
-
-    return callback(null, isAllowed);
-  },
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  origin: process.env.CLIENT_URL || "http://localhost:5173",
+  methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
 };
 
 app.use(cors(corsOptions));
-app.options(/.*/, cors(corsOptions));
+app.options("*", cors(corsOptions));
 
 // signup
 app.post("/signup", async (req, res) => {
@@ -50,7 +34,7 @@ app.post("/signup", async (req, res) => {
     const hasedpassword = await bcrypt.hash(password, 10);
     const newuser = new users({ name, email, password: hasedpassword });
     await newuser.save();
-
+    // Generate JWT token
     const token = jwt.sign({ userId: newuser._id }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
@@ -87,7 +71,7 @@ app.post("/login", async (req, res) => {
     if (!ispasswordmatches) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
-
+    // Generate JWT token
     const token = jwt.sign(
       { userId: existinguser._id },
       process.env.JWT_SECRET,
@@ -104,6 +88,7 @@ app.post("/login", async (req, res) => {
       },
     });
   } catch (error) {
+    console.error("/login error:", error);
     return res.status(500).json({ message: "Internal server error" });
   }
 });
@@ -202,10 +187,7 @@ app.delete("/notes/:id", authenticatioToken, async (req, res) => {
 // mongodb connection
 const connectdb = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URL, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(process.env.MONGODB_URL);
     console.log("Connected to MongoDB");
   } catch (error) {
     console.log("Error connecting to MongoDB:", error);
